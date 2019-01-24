@@ -9,7 +9,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import Navigation from "./components/Navigation.vue";
-import account from "./controllers/Account";
 
 export default {
   name: "app",
@@ -21,22 +20,20 @@ export default {
     const $store = this.$store;
     this.unsubscribe = firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        account
-          .createOrGetAccount(user)
+        $store
+          .dispatch({
+            type: "login",
+            user
+          })
           .then(account => {
-            $store.commit({
-              type: "authenticate",
-              account
-            });
             if (account.confirmed) {
               $router.replace("home");
             } else {
               $router.replace("account");
             }
-          })
-          .catch(e => console.log(e));
+          });
       } else {
-        $store.commit("logout");
+        $store.dispatch("logout");
         $router.replace("home");
       }
     });

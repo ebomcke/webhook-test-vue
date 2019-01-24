@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     authenticated: function() {
-      return this.$store.state.account.authenticated;
+      return this.$store.getters.isAuthenticated;
     }
   }
 };

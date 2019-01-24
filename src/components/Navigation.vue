@@ -14,7 +14,7 @@ export default {
   name: "navigation",
   computed: {
     authenticated: function() {
-      return this.$store.state.account.authenticated;
+      return this.$store.getters.isAuthenticated;
     }
   },
   methods: {
