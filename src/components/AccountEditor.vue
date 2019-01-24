@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  data: function() {
+  data() {
     return {
       account: this.$store.state.account.account,
       loading: false
