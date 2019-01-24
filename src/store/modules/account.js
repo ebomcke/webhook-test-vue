@@ -23,6 +23,13 @@ export default {
       });
       return account;
     },
+    async update({ commit }, payload) {
+      const account = await accounts.update(payload.account);
+      commit({
+        type: "update",
+        account
+      });
+    },
     logout({ commit }) {
       commit({
         type: "update",

@@ -19,6 +19,15 @@ class Account {
     }
     return account;
   };
+
+  update = async account => {
+    await firebase
+      .firestore()
+      .collection("accounts")
+      .doc(account.id)
+      .set(account);
+    return account;
+  };
 }
 
 export default new Account();
