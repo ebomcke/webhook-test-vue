@@ -1,14 +1,16 @@
 <template>
   <el-card shadow="hover">
-    <div slot="header">
-      <span class="card-title">/{{ path }}</span>
-      <div class="bottom">
-        <Timestamp class="last-active" :timestamp="lastActive" prefix="Last active"/>
-        <el-button class="card-operation" type="text" @click="deleteEndpoint">Delete</el-button>
+    <a @click="editEndpoint">
+      <div slot="header">
+        <span class="card-title">/{{ path }}</span>
+        <div class="bottom">
+          <Timestamp class="last-active" :timestamp="lastActive" prefix="Last active"/>
+          <el-button class="card-operation" type="text" @click.stop="deleteEndpoint">Delete</el-button>
+        </div>
       </div>
-    </div>
-    <h5>Default response</h5>
-    <ShortJson :content="defaultResponse.body" :prepend="httpHeader"/>
+      <h5>Default response</h5>
+      <ShortJson :content="defaultResponse.body" :prepend="httpHeader"/>
+    </a>
   </el-card>
 </template>
 
@@ -32,6 +34,14 @@ export default {
     Timestamp
   },
   methods: {
+    editEndpoint() {
+      this.$router.push({
+        name: "endpoint",
+        params: {
+          id: this.id
+        }
+      });
+    },
     deleteEndpoint() {
       this.$store.dispatch("endpoint/delete", this.id);
     }

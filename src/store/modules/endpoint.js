@@ -11,7 +11,7 @@ const endpoint = {
   sync: {
     defaultValues: {
       defaultResponse: {
-        status: 200,
+        statusCode: 200,
         body: JSON.stringify({ status: "OK" })
       },
       lastActive: firebase.firestore.Timestamp.now()

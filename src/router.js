@@ -5,6 +5,7 @@ import "firebase/auth";
 import Home from "./views/Home.vue";
 import Account from "./views/Account.vue";
 import Endpoints from "./views/Endpoints.vue";
+import Endpoint from "./views/Endpoint.vue";
 
 Vue.use(Router);
 
@@ -33,6 +34,14 @@ const router = new Router({
       path: "/endpoints",
       name: "endpoints",
       component: Endpoints,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/endpoints/:id",
+      name: "endpoint",
+      component: Endpoint,
       meta: {
         requiresAuth: true
       }
