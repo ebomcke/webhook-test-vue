@@ -1,31 +1,59 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Navigation/>
     <router-view/>
   </div>
 </template>
+
+<script>
+import firebase from "firebase/app";
+import "firebase/auth";
+import Navigation from "./components/Navigation.vue";
+import account from "./controllers/Account";
+
+export default {
+  name: "app",
+  components: {
+    Navigation
+  },
+  created() {
+    const $router = this.$router;
+    const $store = this.$store;
+    this.unsubscribe = firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        account
+          .createOrGetAccount(user)
+          .then(account => {
+            $store.commit({
+              type: "authenticate",
+              account
+            });
+            if (account.confirmed) {
+              $router.replace("home");
+            } else {
+              $router.replace("account");
+            }
+          })
+          .catch(e => console.log(e));
+      } else {
+        $store.commit("logout");
+        $router.replace("home");
+      }
+    });
+  },
+  beforeDestroy() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+  }
+};
+</script>
 
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
