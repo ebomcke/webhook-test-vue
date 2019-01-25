@@ -13,7 +13,9 @@
     "element-ui": "^2.4.11",
     "firebase": "^5.8.1",
     "firebaseui": "^3.5.2",
+    "prismjs": "^1.15.0",
     "vue": "^2.5.21",
+    "vue-prism-editor": "^0.1.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.1.0",
     "vuex-easy-firestore": "^1.28.0"

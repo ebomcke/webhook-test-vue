@@ -8,12 +8,13 @@ Vue.use(Vuex);
 
 import account from "./modules/account";
 import endpoint from "./modules/endpoint";
+import webhook from "./modules/webhook";
 
 const store = new Vuex.Store({
   modules: {
     account
   },
-  plugins: [endpoint]
+  plugins: [endpoint, webhook]
 });
 
 firebase.auth().onAuthStateChanged(user => {
@@ -28,8 +29,15 @@ firebase.auth().onAuthStateChanged(user => {
         orderBy: ["lastActive", "desc"]
       })
       .catch(console.error);
+    store
+      .dispatch("webhook/openDBChannel", {
+        where: [["account", "==", accountRef]],
+        orderBy: ["date", "desc"]
+      })
+      .catch(console.error);
   } else {
     store.dispatch("endpoint/closeDBChannel");
+    store.dispatch("webhook/closeDBChannel");
   }
 });
 

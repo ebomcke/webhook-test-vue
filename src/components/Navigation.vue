@@ -3,6 +3,7 @@
     <el-menu-item index="/">Home</el-menu-item>
     <el-menu-item v-if="authenticated" index="/account">Account</el-menu-item>
     <el-menu-item v-if="authenticated" index="/endpoints">Endpoints</el-menu-item>
+    <el-menu-item v-if="authenticated" index="/webhooks">Webhooks</el-menu-item>
     <el-menu-item v-if="authenticated" @click="logout" index="/" class="logout-menu-item">Logout</el-menu-item>
   </el-menu>
 </template>

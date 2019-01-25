@@ -6,6 +6,8 @@ import Home from "./views/Home.vue";
 import Account from "./views/Account.vue";
 import Endpoints from "./views/Endpoints.vue";
 import Endpoint from "./views/Endpoint.vue";
+import Webhooks from "./views/Webhooks.vue";
+import Webhook from "./views/Webhook.vue";
 
 Vue.use(Router);
 
@@ -42,6 +44,22 @@ const router = new Router({
       path: "/endpoints/:id",
       name: "endpoint",
       component: Endpoint,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/webhooks",
+      name: "webhooks",
+      component: Webhooks,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/webhooks/:id",
+      name: "webhook",
+      component: Webhook,
       meta: {
         requiresAuth: true
       }

@@ -1,15 +1,15 @@
 <template>
   <el-card shadow="hover">
-    <a @click="editEndpoint">
+    <a @click="goToWebhook">
       <div slot="header">
-        <span class="card-title">/{{ path }}</span>
+        <span class="card-title">/{{ organisationName }}/{{ path }}</span>
         <div class="bottom">
-          <Timestamp class="last-active" :timestamp="lastActive" prefix="Last active"/>
-          <el-button class="card-operation" type="text" @click.stop="deleteEndpoint">Delete</el-button>
+          <Timestamp class="last-active" :timestamp="date" prefix="Received"/>
+          <el-button class="card-operation" type="text" @click.stop="deleteWebhook">Delete</el-button>
         </div>
       </div>
-      <h5>Default response</h5>
-      <ShortJson :content="defaultResponse.body" :prepend="httpHeader"/>
+      <h5>Body</h5>
+      <ShortJson :content="body"/>
     </a>
   </el-card>
 </template>
@@ -21,12 +21,12 @@ export default {
   props: {
     id: String,
     path: String,
-    lastActive: Object,
-    defaultResponse: Object
+    date: Object,
+    body: String
   },
   computed: {
-    httpHeader() {
-      return `HTTP ${this.defaultResponse.statusCode}:`;
+    organisationName() {
+      return this.$store.state.account.account.organisationName;
     }
   },
   components: {
@@ -34,16 +34,16 @@ export default {
     Timestamp
   },
   methods: {
-    editEndpoint() {
+    goToWebhook() {
       this.$router.push({
-        name: "endpoint",
+        name: "webhook",
         params: {
           id: this.id
         }
       });
     },
-    deleteEndpoint() {
-      this.$store.dispatch("endpoint/delete", this.id);
+    deleteWebhook() {
+      this.$store.dispatch("webhook/delete", this.id);
     }
   }
 };

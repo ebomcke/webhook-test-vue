@@ -1,14 +1,16 @@
 <template>
-  <pre>
-    <code>{{ shortContent }}</code>
-  </pre>
+  <prism-editor :code="shortContent" language="json" readonly></prism-editor>
 </template>
 
 <script>
+import PrismEditor from "vue-prism-editor";
 export default {
   props: {
     content: String,
     prepend: String
+  },
+  components: {
+    PrismEditor
   },
   computed: {
     shortContent() {

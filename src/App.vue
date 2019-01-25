@@ -9,6 +9,8 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import Navigation from "./components/Navigation.vue";
+import("prismjs");
+import("prismjs/themes/prism.css");
 
 export default {
   name: "app",
