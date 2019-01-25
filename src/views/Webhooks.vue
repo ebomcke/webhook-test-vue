@@ -15,7 +15,7 @@
           :key="item.value"
           :label="item.label"
           :value="item.value"
-        ></el-option>
+        />
       </el-select>
     </div>
     <el-row>
@@ -23,11 +23,22 @@
         <WebhookCard v-bind="webhook"/>
       </el-col>
     </el-row>
+    <div v-if="noResults">
+      <el-alert
+        title="I can't find any webhook matching your search"
+        type="info"
+        description="Try using less restrictive search criteria. You can also send a test message using the form below"
+        show-icon
+        :closable="false"
+      ></el-alert>
+      <WebhookTester/>
+    </div>
   </div>
 </template>
 
 <script>
 import WebhookCard from "../components/WebhookCard";
+import WebhookTester from "../components/WebhookTester";
 
 export default {
   data() {
@@ -45,9 +56,12 @@ export default {
   computed: {
     webhooks() {
       return this.$store.getters["webhook/filteredWebhooks"];
+    },
+    noResults() {
+      return this.webhooks.length === 0;
     }
   },
-  components: { WebhookCard },
+  components: { WebhookCard, WebhookTester },
   methods: {
     updateFilters(filters) {
       this.$store.dispatch({

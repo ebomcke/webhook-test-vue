@@ -16,6 +16,11 @@ const endpoint = {
       },
       lastActive: firebase.firestore.Timestamp.now()
     }
+  },
+  getters: {
+    get: state => id => {
+      return state.data[id];
+    }
   }
 };
 
