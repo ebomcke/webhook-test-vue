@@ -18,6 +18,11 @@ const endpoint = {
     }
   },
   getters: {
+    sorted: state => {
+      return Object.values(state.data).sort((e1, e2) => {
+        return e1.lastActive.toMillis() > e2.lastActive.toMillis() ? -1 : 1;
+      });
+    },
     get: state => id => {
       return state.data[id];
     }

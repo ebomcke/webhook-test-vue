@@ -15,18 +15,29 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 export default {
-  data() {
-    return { endpoints: this.$store.state.endpoint.data };
+  computed: {
+    endpoints() {
+      return this.$store.getters["endpoint/sorted"];
+    }
   },
   components: { EndpointCard },
   methods: {
     newEndpoint() {
-      this.$store.dispatch("endpoint/insert", {
-        account: firebase
-          .firestore()
-          .doc(`/accounts/${this.$store.state.account.account.id}`),
-        path: `my-new-url-${new Date().getTime()}`
-      });
+      this.$store
+        .dispatch("endpoint/insert", {
+          account: firebase
+            .firestore()
+            .doc(`/accounts/${this.$store.state.account.account.id}`),
+          path: `my-new-url-${new Date().getTime()}`
+        })
+        .then(id => {
+          this.$router.push({
+            name: "endpoint",
+            params: {
+              id
+            }
+          });
+        });
     }
   }
 };
