@@ -23,18 +23,14 @@ firebase.auth().onAuthStateChanged(user => {
       .firestore()
       .collection("accounts")
       .doc(user.uid);
-    store
-      .dispatch("endpoint/openDBChannel", {
-        where: [["account", "==", accountRef]],
-        orderBy: ["lastActive", "desc"]
-      })
-      .catch(console.error);
-    store
-      .dispatch("webhook/openDBChannel", {
-        where: [["account", "==", accountRef]],
-        orderBy: ["date", "desc"]
-      })
-      .catch(console.error);
+    store.dispatch("endpoint/openDBChannel", {
+      where: [["account", "==", accountRef]],
+      orderBy: ["lastActive", "desc"]
+    });
+    store.dispatch("webhook/openDBChannel", {
+      where: [["account", "==", accountRef]],
+      orderBy: ["date", "desc"]
+    });
   } else {
     store.dispatch("endpoint/closeDBChannel");
     store.dispatch("webhook/closeDBChannel");
