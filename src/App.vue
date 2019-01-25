@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Navigation/>
-    <router-view/>
+    <div class="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -29,9 +31,9 @@ export default {
           })
           .then(account => {
             if (account.confirmed) {
-              $router.replace("home");
+              $router.replace("/webhooks");
             } else {
-              $router.replace("account");
+              $router.replace("/account");
             }
           });
       } else {
@@ -54,5 +56,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 11px;
 }
 </style>

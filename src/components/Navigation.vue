@@ -4,7 +4,7 @@
     <el-menu-item v-if="authenticated" index="/account">Account</el-menu-item>
     <el-menu-item v-if="authenticated" index="/endpoints">Endpoints</el-menu-item>
     <el-menu-item v-if="authenticated" index="/webhooks">Webhooks</el-menu-item>
-    <el-menu-item v-if="authenticated" @click="logout" index="/" class="logout-menu-item">Logout</el-menu-item>
+    <a v-if="authenticated" @click="logout" class="logout-menu-item">Logout</a>
   </el-menu>
 </template>
 
@@ -28,7 +28,15 @@ export default {
 </script>
 
 <style scoped>
-.el-menu--horizontal > .el-menu-item.logout-menu-item {
+.logout-menu-item {
+  font-size: 14px;
+  padding: 0 20px;
+  cursor: pointer;
+  height: 60px;
+  line-height: 60px;
+  margin: 0;
+  border-bottom: 2px solid transparent;
+  color: #909399;
   float: right;
 }
 </style>

@@ -5,7 +5,6 @@
 <script>
 import firebase from "firebase/app";
 import "firebase/auth";
-import * as firebaseui from "firebaseui";
 
 const uiConfig = {
   signInFlow: "popup",
@@ -18,14 +17,25 @@ const uiConfig = {
 export default {
   name: "sign-in",
   mounted() {
-    if (this.ui) {
-      this.ui.reset();
-    }
-    this.ui = new firebaseui.auth.AuthUI(firebase.auth());
-    this.ui.start("#firebaseui-auth-container", uiConfig);
+    this.initUi();
   },
   beforeDestroy() {
     if (this.ui && this.ui.delete) this.ui.delete();
+  },
+  computed: {
+    authenticated: function() {
+      return this.$store.getters.isAuthenticated;
+    }
+  },
+  methods: {
+    async initUi() {
+      const firebaseui = await import("firebaseui");
+      if (this.ui) {
+        this.ui.reset();
+      }
+      this.ui = new firebaseui.auth.AuthUI(firebase.auth());
+      this.ui.start("#firebaseui-auth-container", uiConfig);
+    }
   }
 };
 </script>
