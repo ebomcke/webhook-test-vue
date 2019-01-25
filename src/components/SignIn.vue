@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     async initUi() {
-      const firebaseui = await import("firebaseui");
+      const firebaseui = await import(/* webpackChunkName: "firebaseui" */ "firebaseui");
       if (this.ui) {
         this.ui.reset();
       }
