@@ -21,6 +21,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveEndpoint" :loading="loading">Save</el-button>
+        <el-button type="danger" @click="deleteEndpoint">Delete</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -55,6 +56,10 @@ export default {
         .then(() => {
           this.loading = false;
         });
+    },
+    deleteEndpoint() {
+      this.$router.push("/endpoints");
+      this.$store.dispatch("endpoint/delete", this.id);
     }
   }
 };

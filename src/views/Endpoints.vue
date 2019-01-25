@@ -21,14 +21,12 @@ export default {
   components: { EndpointCard },
   methods: {
     newEndpoint() {
-      this.$store
-        .dispatch("endpoint/insert", {
-          account: firebase
-            .firestore()
-            .doc(`/accounts/${this.$store.state.account.account.id}`),
-          path: "my-new-url"
-        })
-        .then(console.log);
+      this.$store.dispatch("endpoint/insert", {
+        account: firebase
+          .firestore()
+          .doc(`/accounts/${this.$store.state.account.account.id}`),
+        path: `my-new-url-${new Date().getTime()}`
+      });
     }
   }
 };
